@@ -1,4 +1,5 @@
 PKG_NAME := pyasn1
-URL := https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.8.tar.gz
+URL := https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.9.tar.gz
+ARCHIVES :=
 
 include ../common/Makefile.common
