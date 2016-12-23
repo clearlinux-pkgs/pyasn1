@@ -4,7 +4,7 @@
 #
 Name     : pyasn1
 Version  : 0.1.9
-Release  : 20
+Release  : 21
 URL      : https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.9.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.9.tar.gz
 Summary  : ASN.1 types and codecs
@@ -39,6 +39,7 @@ python components for the pyasn1 package.
 %setup -q -n pyasn1-0.1.9
 
 %build
+export LANG=C
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -46,7 +47,7 @@ python3 setup.py build -b py3
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-py.test-2.7
+py.test-2.7 || :
 %install
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot}
