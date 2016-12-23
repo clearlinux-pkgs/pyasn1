@@ -4,7 +4,7 @@
 #
 Name     : pyasn1
 Version  : 0.1.9
-Release  : 21
+Release  : 22
 URL      : https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.9.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.9.tar.gz
 Summary  : ASN.1 types and codecs
