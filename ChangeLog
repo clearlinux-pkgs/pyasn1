@@ -1,9 +1,98 @@
+
+Revision 0.2.3, released 25-02-2017
+-----------------------------------
+
+- Improved SEQUENCE/SET/CHOICE decoding performance by maintaining a single shared
+  NamedType object for all instances of SEQUENCE/SET object.
+- Improved INTEGER encoding/decoding by switching to Python's built-in
+  integer serialization functions.
+- Improved BitString performance by rebasing it onto Python int type and leveraging
+  fast Integer serialization functions.
+- BitString type usability improved in many ways: for example bitshifting and
+  numeric operation on BitString is now possible.
+- Minor ObjectIdentifier type performance optimization.
+- ASN.1 character types refactored to keep unicode contents internally
+  (rather than serialized octet stream) and duck-type it directly.
+- ASN.1 OctetString initialized from a Python object performs bytes()
+  on it when running on Python 3 (used to do str() which is probably
+  less logical).
+- Missing support for NoValue.__sizeof__ added.
+- Added checks to make sure SEQUENCE/SET components being assigned
+  match the prototypes.
+- Setter methods for constructed types consistently accept matchTags
+  and matchConstraints flags to control the strictness of inner
+  components compatibility verification. Previously, these checks
+  were tied to verifyConstraints flag, now they are all independent.
+- General documentation improvements here and there.
+- Fix to __reversed__() magic to make it returning an iterator.
+- Test suite simplified and unified.
+- The __all__ variable added to most of the Python modules.
+- The "test" directory renamed into "tests" not to collide with
+  the "test" module.
+
+Revision 0.2.2, released 07-02-2017
+-----------------------------------
+
+- FIX TO A SECURITY WEAKNESS: define length only decoders could have successfully
+  processed indefinite length serialization.
+- FIX TO A SECURITY WEAKNESS: canonical decoders (CER/DER) may have successfully
+  consumed non-canonical variations of (otherwise valid) serialization.
+- Broken Enumerated subtyping fixed.
+
+Revision 0.2.1, released 05-02-2017
+-----------------------------------
+
+- FIX TO A SECURITY WEAKNESS: BER decoder improperly cached long tags.
+- New "native" codec implemented to transform pyasn1 types to Python built-in types and back.
+- Switched to new-style classes.
+- Sphinx documentation added.
+- BitString improvements:
+
+  * simple string of binary digits is now supported as initializer
+  * default str() yields string of binary digits (used to yield str(tuple())
+  * binValue and hexValue initializers added
+  * .asNumbers(), .asOctets() and asInteger() representation added
+
+- Components of constructed ASN.1 types can now be populated with
+  uninitialized ASN.1 objects by assigning either noValue sentinel or
+  setupComponent() function return in addition to now-legacy None sentinel.
+  This should improve code readability.
+- NoValue class improved to become a singleton and catch more kinds
+  of access to it.
+- Compatibility wrappers str2octs() and oct2strs() fixed to run over
+  iso-8859-1 encoding.
+- Integer changed to emit Real instance if division produces a float.
+- True division operation now supported by Integer type.
+- The __contains__(), __reverse__() methods implemented for container types
+- Iterator protocol support implemented for all container types.
+  Warning, warning, warning: this change may potentially affect backward
+  compatibility when:
+
+  * user class overrides __getitem__() without overriding __iter__()
+  * when user code iterates over SEQUENCE object to get its components (now keys will be yielded)
+
+- Almost complete Python list and dict protocols added to SequenceOf/SetOf and
+  Sequence/Set respectively
+- Fix to divmod operation implementation in Integer type.
+- Fix to IntegerDecoder's precomputed value map on Python 3.
+- Fix to base ASN.1 types to run in "unicode_literals" mode.
+- Fix to composite constraints "+" operands ordering (AbstractConstraintSet.__radd__)
+- Fix to constraints merge in .subtype() -- on merge existing constraints are
+  expanded to accommodate new constraints, not the other way round. When existing
+  constraints are wrapped in ConstraintsIntersection composite, additional
+  constraints being added on subtyping effectively further narrow the set of
+  allowed values, which aligns well with the notion of subtyping.
+- Fix to NamedTypes methods to handle .getTagMap() returning None
+- Fix to Set/Sequence.setDefaultComponents() to return self
+- Copyright notice added to non-trivial source code files.
+- Author's email changed, copyright extended to 2017
+
 Revision 0.1.9, released 28-09-2015
 -----------------------------------
 
 - Wheel distribution format now supported.
 - Extensions added to text files, CVS attic flushed.
-- Fix to make uninitilaized pyasn1 objects failing properly on hash().
+- Fix to make uninitialized pyasn1 objects failing properly on hash().
 - Fix to ObjectIdentifier initialization from unicode string.
 - Fix to CER/DER Boolean decoder - fail on non single-octet payload.
 
@@ -14,7 +103,7 @@ Revision 0.1.8, released 22-06-2015
 - Explicit limit on ObjectIdentifier arc value size removed.
 - Unicode initializer support added to OctetString type and derivatives.
 - New prettyPrintType() abstract method implemented to base pyasn1 types
-  to facilitate encoding errors analisys.
+  to facilitate encoding errors analysis.
 - The __str__() method implemented to Tag, TagSet and TagMap classes to
   ease encoding errors troubleshooting.
   easing encoding errors
@@ -66,11 +155,12 @@ Revision 0.1.8, released 22-06-2015
 - Fix to broken REAL type decoding handling.
 - Fix to BitString and OctetString decoders dealing with constructed
   encoding -- it used to be possible to embed other types in substrate.
-- Fix to end-of-octest sentinel handling:
-  * require strict two-zeros sentinel encoding
-  * recognize EOO sentinel only when explicitly requested by caller
-    of the decoder via allowEoo=True parameter (warning: API change)
 - DER codec hardened not to tolerate indefinite length encoding/decoding.
+- Fix to end-of-octest sentinel handling:
+
+  + require strict two-zeros sentinel encoding
+  + recognize EOO sentinel only when explicitly requested by caller
+    of the decoder via allowEoo=True parameter (warning: API change)
 
 Revision 0.1.7
 --------------
@@ -172,14 +262,14 @@ Revision 0.1.1
   + switch to rich comparation
   + drop explicit long integer type use
   + map()/filter() replaced with list comprehension
-  + apply() replaced with */**args
+  + apply() replaced with \*/\*\*args
   + switched to use 'key' sort() callback function
   + support both __nonzero__() and __bool__() methods
   + modified not to use py3k-incompatible exception syntax
   + getslice() operator fully replaced with getitem()
   + dictionary operations made 2K/3K compatible
   + base type for encoding substrate and OctetString-based types
-    is now 'bytes' when running py3k and 'str' otherwise
+  is now 'bytes' when running py3k and 'str' otherwise
   + OctetString and derivatives now unicode compliant.
   + OctetString now supports two python-neutral getters: asOcts() & asInts()
   + print OctetString content in hex whenever it is not printable otherwise
@@ -216,6 +306,7 @@ Revision 0.0.13a
 - Fix to proper behaviour of PermittedAlphabetConstraint object.
 - Fix to improper Boolean substrate handling at CER/DER decoders.
 - Changes towards performance improvement:
+
   + all dict.has_key() & dict.get() invocations replaced with modern syntax
     (this breaks compatibility with Python 2.1 and older).
   + tag and tagset caches introduced to decoder
@@ -323,7 +414,7 @@ Revision 0.0.5a
 Revision 0.0.4a
 ---------------
 
-* Asn1ItemBase.prettyPrinter() -> *.prettyPrint()
+* Asn1ItemBase.prettyPrinter() -> \*.prettyPrint()
 
 Revision 0.0.3a
 ---------------
