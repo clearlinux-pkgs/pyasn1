@@ -4,12 +4,13 @@
 #
 Name     : pyasn1
 Version  : 0.3.3
-Release  : 28
+Release  : 29
 URL      : https://pypi.debian.net/pyasn1/pyasn1-0.3.3.tar.gz
 Source0  : https://pypi.debian.net/pyasn1/pyasn1-0.3.3.tar.gz
 Summary  : ASN.1 types and codecs
 Group    : Development/Tools
 License  : BSD-2-Clause
+Requires: pyasn1-legacypython
 Requires: pyasn1-python
 BuildRequires : pbr
 BuildRequires : pip
@@ -28,9 +29,18 @@ ASN.1 library for Python
 [![Coverage Status](https://img.shields.io/codecov/c/github/etingof/pyasn1.svg)](https://codecov.io/github/etingof/pyasn1)
 [![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/etingof/pyasn1/master/LICENSE.txt)
 
+%package legacypython
+Summary: legacypython components for the pyasn1 package.
+Group: Default
+
+%description legacypython
+legacypython components for the pyasn1 package.
+
+
 %package python
 Summary: python components for the pyasn1 package.
 Group: Default
+Requires: pyasn1-legacypython
 
 %description python
 python components for the pyasn1 package.
@@ -44,7 +54,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503802208
+export SOURCE_DATE_EPOCH=1505056578
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -54,7 +64,7 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 py.test-2.7 || :
 %install
-export SOURCE_DATE_EPOCH=1503802208
+export SOURCE_DATE_EPOCH=1505056578
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
@@ -65,7 +75,10 @@ echo ----[ mark ]----
 %files
 %defattr(-,root,root,-)
 
-%files python
+%files legacypython
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
+
+%files python
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
