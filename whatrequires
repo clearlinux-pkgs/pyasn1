@@ -1,8 +1,8 @@
 # This file contains recursive sources that require this package
-ecdsa-0:0.13-26.src
-ndg_httpsclient-0:0.4.3-18.src
-oauth2client-0:4.1.2-16.src
-paramiko-0:2.2.1-31.src
-pyOpenSSL-0:17.2.0-38.src
-rsa-0:3.4.2-25.src
-urllib3-0:1.22-44.src
+ecdsa
+ndg_httpsclient
+oauth2client
+paramiko
+pyOpenSSL
+rsa
+urllib3
