@@ -1,12 +1,16 @@
 # This file contains recursive sources that require this package
+acme
 ceph
+certbot
 ecdsa
 gensim
+google-api-python-client
 jupyter-notebook-gist
 ndg_httpsclient
 oauth2client
 paramiko
 pyOpenSSL
+python-keyczar
 requests
 rsa
 smart_open
