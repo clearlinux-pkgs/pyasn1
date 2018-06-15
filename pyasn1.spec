@@ -4,7 +4,7 @@
 #
 Name     : pyasn1
 Version  : 0.4.2
-Release  : 48
+Release  : 49
 URL      : https://pypi.debian.net/pyasn1/pyasn1-0.4.2.tar.gz
 Source0  : https://pypi.debian.net/pyasn1/pyasn1-0.4.2.tar.gz
 Summary  : ASN.1 types and codecs
