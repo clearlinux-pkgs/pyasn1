@@ -4,9 +4,9 @@
 #
 Name     : pyasn1
 Version  : 0.4.3
-Release  : 56
-URL      : https://files.pythonhosted.org/packages/0d/33/3466a3210321a02040e3ab2cd1ffc6f44664301a5d650a7e44be1dc341f2/pyasn1-0.4.3.tar.gz
-Source0  : https://files.pythonhosted.org/packages/0d/33/3466a3210321a02040e3ab2cd1ffc6f44664301a5d650a7e44be1dc341f2/pyasn1-0.4.3.tar.gz
+Release  : 57
+URL      : https://pypi.debian.net/pyasn1/pyasn1-0.4.3.tar.gz
+Source0  : https://pypi.debian.net/pyasn1/pyasn1-0.4.3.tar.gz
 Summary  : ASN.1 types and codecs
 Group    : Development/Tools
 License  : BSD-2-Clause
@@ -76,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532241430
+export SOURCE_DATE_EPOCH=1532295026
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -86,7 +86,7 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
 %install
-export SOURCE_DATE_EPOCH=1532241430
+export SOURCE_DATE_EPOCH=1532295026
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/pyasn1
 cp LICENSE.rst %{buildroot}/usr/share/doc/pyasn1/LICENSE.rst
