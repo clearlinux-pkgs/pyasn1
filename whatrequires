@@ -1,9 +1,4 @@
 # This file contains recursive sources that require this package
-acme
-certbot
-ecdsa
-google-api-python-client
-josepy
 ndg_httpsclient
 oauth2client
 paramiko
