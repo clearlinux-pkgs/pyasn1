@@ -4,7 +4,7 @@
 #
 Name     : pyasn1
 Version  : 0.4.5
-Release  : 62
+Release  : 63
 URL      : https://files.pythonhosted.org/packages/46/60/b7e32f6ff481b8a1f6c8f02b0fd9b693d1c92ddd2efb038ec050d99a7245/pyasn1-0.4.5.tar.gz
 Source0  : https://files.pythonhosted.org/packages/46/60/b7e32f6ff481b8a1f6c8f02b0fd9b693d1c92ddd2efb038ec050d99a7245/pyasn1-0.4.5.tar.gz
 Summary  : ASN.1 types and codecs
@@ -13,10 +13,10 @@ License  : BSD-2-Clause
 Requires: pyasn1-license = %{version}-%{release}
 Requires: pyasn1-python = %{version}-%{release}
 Requires: pyasn1-python3 = %{version}-%{release}
-BuildRequires : buildreq-distutils23
 BuildRequires : buildreq-distutils3
 BuildRequires : py
 BuildRequires : pytest
+BuildRequires : python-core
 
 %description
 ASN.1 library for Python
@@ -26,15 +26,6 @@ ASN.1 library for Python
 [![Build status](https://travis-ci.org/etingof/pyasn1.svg?branch=master)](https://secure.travis-ci.org/etingof/pyasn1)
 [![Coverage Status](https://img.shields.io/codecov/c/github/etingof/pyasn1.svg)](https://codecov.io/github/etingof/pyasn1)
 [![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/etingof/pyasn1/master/LICENSE.txt)
-
-%package legacypython
-Summary: legacypython components for the pyasn1 package.
-Group: Default
-Requires: python-core
-
-%description legacypython
-legacypython components for the pyasn1 package.
-
 
 %package license
 Summary: license components for the pyasn1 package.
@@ -70,9 +61,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1546211509
-python2 setup.py build -b py2
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1554324907
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %check
 export http_proxy=http://127.0.0.1:9/
@@ -80,22 +71,17 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
 %install
-export SOURCE_DATE_EPOCH=1546211509
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pyasn1
 cp LICENSE.rst %{buildroot}/usr/share/package-licenses/pyasn1/LICENSE.rst
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
-
-%files legacypython
-%defattr(-,root,root,-)
-/usr/lib/python2*/*
 
 %files license
 %defattr(0644,root,root,0755)
