@@ -1,1 +1,1 @@
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
+python setup.py test

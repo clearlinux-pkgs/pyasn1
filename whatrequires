@@ -1,7 +1,6 @@
 # This file contains recursive sources that require this package
 conda
-deprecated-pyOpenSSL
-deprecated-urllib3
+ldap3
 mercurial
 ndg_httpsclient
 oauth2client

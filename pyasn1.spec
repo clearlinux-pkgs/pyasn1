@@ -4,7 +4,7 @@
 #
 Name     : pyasn1
 Version  : 0.4.7
-Release  : 67
+Release  : 69
 URL      : https://files.pythonhosted.org/packages/ca/f8/2a60a2c88a97558bdd289b6dc9eb75b00bd90ff34155d681ba6dbbcb46b2/pyasn1-0.4.7.tar.gz
 Source0  : https://files.pythonhosted.org/packages/ca/f8/2a60a2c88a97558bdd289b6dc9eb75b00bd90ff34155d681ba6dbbcb46b2/pyasn1-0.4.7.tar.gz
 Summary  : ASN.1 types and codecs
@@ -16,7 +16,6 @@ Requires: pyasn1-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : py
 BuildRequires : pytest
-BuildRequires : python-core
 
 %description
 ASN.1 library for Python
@@ -61,8 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1567651727
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1570823307
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -75,12 +73,12 @@ python3 setup.py build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
+python setup.py test
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pyasn1
-cp LICENSE.rst %{buildroot}/usr/share/package-licenses/pyasn1/LICENSE.rst
+cp %{_builddir}/pyasn1-0.4.7/LICENSE.rst %{buildroot}/usr/share/package-licenses/pyasn1/7f822087024e192164d73581d9fba060445de7e8
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -91,7 +89,7 @@ echo ----[ mark ]----
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/pyasn1/LICENSE.rst
+/usr/share/package-licenses/pyasn1/7f822087024e192164d73581d9fba060445de7e8
 
 %files python
 %defattr(-,root,root,-)
