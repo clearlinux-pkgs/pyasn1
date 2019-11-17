@@ -1,7 +1,6 @@
 # This file contains recursive sources that require this package
 conda
 ldap3
-mercurial
 ndg_httpsclient
 oauth2client
 paramiko
@@ -9,5 +8,6 @@ pyOpenSSL
 pyasn1-modules
 pypowervm
 pysnmp
+python-ldap
 rsa
 urllib3
