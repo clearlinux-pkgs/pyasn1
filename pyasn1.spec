@@ -4,7 +4,7 @@
 #
 Name     : pyasn1
 Version  : 0.4.8
-Release  : 73
+Release  : 74
 URL      : https://files.pythonhosted.org/packages/a4/db/fffec68299e6d7bad3d504147f9094830b704527a7fc098b721d38cc7fa7/pyasn1-0.4.8.tar.gz
 Source0  : https://files.pythonhosted.org/packages/a4/db/fffec68299e6d7bad3d504147f9094830b704527a7fc098b721d38cc7fa7/pyasn1-0.4.8.tar.gz
 Summary  : ASN.1 types and codecs
@@ -47,6 +47,7 @@ python components for the pyasn1 package.
 Summary: python3 components for the pyasn1 package.
 Group: Default
 Requires: python3-core
+Provides: pypi(pyasn1)
 
 %description python3
 python3 components for the pyasn1 package.
@@ -61,7 +62,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1574007266
+export SOURCE_DATE_EPOCH=1583204468
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
