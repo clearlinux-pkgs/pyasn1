@@ -1,14 +1,11 @@
 # This file contains recursive sources that require this package
 WALinuxAgent
+azure-cli-core
 conda
-ldap3
 ndg_httpsclient
 oauth2client
 paramiko
 pyOpenSSL
 pyasn1-modules
-pypowervm
-pysnmp
-python-ldap
 rsa
 urllib3
